@@ -15,3 +15,4 @@ class WeiboScrapingItem(scrapy.Item):
     url = scrapy.Field()
     post_date = scrapy.Field()
     post_id = scrapy.Field()
+    post_type = scrapy.Field()  # 0 is post, 1 is comment - see settings.py

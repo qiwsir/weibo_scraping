@@ -8,7 +8,12 @@ import sqlite3
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
 
-class WeiboScrapingPipeline(object):
+class WeiboConsolePipeline(object):
+    def process_item(self, item, spider):
+        return item
+
+
+class WeiboSqlitePipeline(object):
     def open_spider(self, spider):
         self.conn = sqlite3.connect('weibo.db')
         self.c = self.conn.cursor()
@@ -20,9 +25,9 @@ class WeiboScrapingPipeline(object):
         if cnt is not 0:
             return
 
-        self.c.execute("INSERT into rentings VALUES (?,?,?,?)",
+        self.c.execute("INSERT into rentings VALUES (?,?,?,?,?)",
                        (item['post_id'], item['text'], item['url'],
-                       item['post_date'],))
+                       item['post_date'], item['post_type']))
         self.conn.commit()
 
     def close_spider(self, spider):

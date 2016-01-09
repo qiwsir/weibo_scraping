@@ -10,7 +10,7 @@ c = conn.cursor()
 
 # Create table
 c.execute('''CREATE TABLE rentings (post_id TEXT PRIMARY KEY, post_text TEXT,
-          url TEXT, post_date INTEGER)''')
+          url TEXT, post_date INTEGER, type INTEGER)''')
 
 # Insert a row of data
 # c.execute("INSERT INTO stocks VALUES ('2006-01-05','BUY','RHAT',100,35.14)")

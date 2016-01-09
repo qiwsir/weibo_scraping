@@ -1,7 +1,10 @@
 # Intro
-抓取微博中伦敦找房子的信息~主要是想给自己接手的人用的哈~
+抓取微博中伦敦找房子的信息~主要是想给自己找接手的人用的哈~
 
 # Installation (initial configuration)
+- create a `mycfg.json` in root directory following the template below.
+**REMEMBER** to change the cookies field.
+- initialize local database
 ```sh
 python init_db.py
 ```
@@ -10,13 +13,6 @@ python init_db.py
 ```sh
 scrapy crawl weibo [-a nPages=10]
 ```
-
-# Notes
-1. 抓取[移动端](http://weibo.cn)
-2. Login with browser cookie
-3. 抓取有"求"、"想租"、"急租"字眼的微博
-4. 抓取有"请问"字眼的微博，因为有些求租的人@了但是没被转发
-5. Using sqlite3 to store data
 
 # Strucuture of weibo HTML
 - class="c"     - whole weibo entry including everything
@@ -40,3 +36,11 @@ scrapy crawl weibo [-a nPages=10]
     ]
 }
 ```
+
+# comments by potential tenants (collectedly manually)
+- renruocao：房型是ensuit吗？
+- 馥焓yeti：邮编是！？？
+- 藤原腿：多少钱？
+- 追着风奔跑的孩子：1，30号有吗
+- 馥焓yeti：多少一周
+- _灼灼其华_：可以预约看一下么 另外 这个是几人共用浴室？

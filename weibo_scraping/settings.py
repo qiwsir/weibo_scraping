@@ -64,7 +64,8 @@ NEWSPIDER_MODULE = 'weibo_scraping.spiders'
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'weibo_scraping.pipelines.WeiboScrapingPipeline': 300,
+    # 'weibo_scraping.pipelines.WeiboConsolePipeline': 300,
+    'weibo_scraping.pipelines.WeiboSqlitePipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -86,6 +87,10 @@ ITEM_PIPELINES = {
 #HTTPCACHE_IGNORE_HTTP_CODES=[]
 #HTTPCACHE_STORAGE='scrapy.extensions.httpcache.FilesystemCacheStorage'
 USER_AGENT='Mozilla/5.0 (X11; Linux x86_64; rv:43.0) Gecko/20100101 Firefox/43.0 Iceweasel/43.0.2'
+
+# some constants
 CONFIG=path.join(path.abspath(path.dirname(__file__)), "..", "mycfg.json")
 #DEPTH_LIMIT=5
 N_PAGES="5"
+POST=0
+COMMENT=1
