@@ -23,3 +23,20 @@ scrapy crawl weibo [-a nPages=10]
 - class="ctt"   - weibo/comment text without OP name
 - class="ct"    - posting time
 - class="cc"    - `<a>` of comment
+
+# Sample mycfg.json
+```json
+{
+    "cookies": {
+        "_T_WM": "REPLACE_THIS_WITH_YOUR_COOKIES",
+        "SUHB": "REPLACE_THIS_WITH_YOUR_COOKIES",
+        "SUBP": "REPLACE_THIS_WITH_YOUR_COOKIES",
+        "SUB": "REPLACE_THIS_WITH_YOUR_COOKIES",
+        "SSOLoginState": "REPLACE_THIS_WITH_YOUR_COOKIES"
+    },
+    "agencies": [
+        {"name": "伦敦租房LondonHome", "id": "3045446321"},
+        {"name": "伦敦租房资讯快报", "id": "1871496974"},
+    ]
+}
+```

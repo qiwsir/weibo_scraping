@@ -29,9 +29,10 @@ class WeiboSpider(scrapy.Spider):
             config = json.load(f)
 
         # start_urls
-        user_ids = config['user_ids']
-        self.start_urls = ['http://weibo.cn/u/%s?page=%s' % (uid,  page) for
-                           uid in user_ids for page in range(1, int(nPages))]
+        agencies = config['agencies']
+        self.start_urls = ['http://weibo.cn/u/%s?page=%s' % (agency['id'],
+                                                             page) for agency
+                           in agencies for page in range(1, int(nPages))]
 
         # cookies
         self.cookies = config['cookies']
