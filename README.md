@@ -13,6 +13,12 @@ python init_db.py
 ```sh
 scrapy crawl weibo [-a nPages=10]
 ```
+It will
+1. Scrape posts of agencies you provided in `mycfg.json` but only those that
+   look like seeking for accommodation.
+2. Scrape comments of posts that are talking about renting rooms, because those
+   who want to find a room are highly likely to comment.
+3. Scrape posts (by searching) whose contents are looking for accommodation.
 
 # Strucuture of weibo HTML
 - class="c"     - whole weibo entry including everything
@@ -33,14 +39,12 @@ scrapy crawl weibo [-a nPages=10]
     "agencies": [
         {"name": "伦敦租房LondonHome", "id": "3045446321"},
         {"name": "伦敦租房资讯快报", "id": "1871496974"},
+    ],
+    "tags": [
+        "伦敦租房",
+        "伦敦住宿",
+        "伦敦求租",
+        "伦敦租房信息"
     ]
 }
 ```
-
-# comments by potential tenants (collectedly manually)
-- renruocao：房型是ensuit吗？
-- 馥焓yeti：邮编是！？？
-- 藤原腿：多少钱？
-- 追着风奔跑的孩子：1，30号有吗
-- 馥焓yeti：多少一周
-- _灼灼其华_：可以预约看一下么 另外 这个是几人共用浴室？
