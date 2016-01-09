@@ -66,7 +66,7 @@ class WeiboSpider(scrapy.Spider):
     def parse_weibo(self, response):
         entries = response.xpath(XPATH_WB_POST)
         for entry in entries:
-            text = entry.xpath(XPATH_WB_TEXT).extract()[0]
+            text = ''.join(entry.xpath(XPATH_WB_TEXT).extract())
 
             # case1: msgs from agencies are mostly ads
             if self.is_relevant_agency_ad(text):
@@ -95,7 +95,7 @@ class WeiboSpider(scrapy.Spider):
         agency ad (case1 in `parse_weibo`)"""
         entries = response.xpath(XPATH_WB_COMMENT)
         for entry in entries:
-            text = entry.xpath(XPATH_WB_TEXT).extract()[0]
+            text = ''.join(entry.xpath(XPATH_WB_TEXT).extract())
             item_id = entry.xpath(XPATH_WB_ID).extract()[0]
             item_date = \
                 self._get_date(entry.xpath(XPATH_WB_DATE).extract()[0])
@@ -106,6 +106,10 @@ class WeiboSpider(scrapy.Spider):
 
     def is_relevant_tenant_post(self, text):
         """try to identify posts that are seeking for a place"""
+        # ignore posts for other cities
+        if self._is_other_city(text):
+            return False
+
         # tenants posted ads contains phrases
         if (any(ptn in text for ptn in [u'求租', u'想租', u'急租'])):
             return True
@@ -118,9 +122,22 @@ class WeiboSpider(scrapy.Spider):
 
     def is_relevant_agency_ad(self, text):
         """try to identify ads that are renting rooms out"""
-        if (any(ptn in text for ptn in
-                [u'转租', u'招租', u'超美', u'超大', u'超好', u'预约',
-                 u'预约', u'看房', u'出租'])):
+        # ignore posts for other cities
+        if self._is_other_city(text):
+            return False
+
+        if any(ptn in text for ptn in
+               [u'转租', u'招租', u'超美', u'超大', u'超好', u'预约',
+                u'预约', u'看房', u'出租']):
+            return True
+        else:
+            return False
+
+    def _is_other_city(self,text):
+        """return True if not in London"""
+        if any(ptn in text for ptn in
+               [u'考文垂', u'爱丁堡', u'利物浦', u'诺丁汉', u'伯明翰',
+                u'曼彻斯特', u'谢菲尔']):
             return True
         else:
             return False

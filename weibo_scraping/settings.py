@@ -87,10 +87,10 @@ ITEM_PIPELINES = {
 #HTTPCACHE_IGNORE_HTTP_CODES=[]
 #HTTPCACHE_STORAGE='scrapy.extensions.httpcache.FilesystemCacheStorage'
 USER_AGENT='Mozilla/5.0 (X11; Linux x86_64; rv:43.0) Gecko/20100101 Firefox/43.0 Iceweasel/43.0.2'
+LOG_LEVEL="WARNING"
 
 # some constants
 CONFIG=path.join(path.abspath(path.dirname(__file__)), "..", "mycfg.json")
-#DEPTH_LIMIT=5
 N_PAGES="5"
 POST=0
 COMMENT=1

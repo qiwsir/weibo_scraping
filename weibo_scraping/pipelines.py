@@ -25,9 +25,13 @@ class WeiboSqlitePipeline(object):
         if cnt is not 0:
             return
 
-        self.c.execute("INSERT into rentings VALUES (?,?,?,?,?)",
+        # ignore posts that are too old
+        if item['post_date'] < 20151101:
+            return
+
+        self.c.execute("INSERT into rentings VALUES (?,?,?,?,?,?,?)",
                        (item['post_id'], item['text'], item['url'],
-                       item['post_date'], item['post_type']))
+                       item['post_date'], item['post_type'], 0, ''))
         self.conn.commit()
 
     def close_spider(self, spider):
