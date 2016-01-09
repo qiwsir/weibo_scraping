@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import sqlite3
+
 # Define your item pipelines here
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
@@ -7,5 +9,21 @@
 
 
 class WeiboScrapingPipeline(object):
+    def open_spider(self, spider):
+        self.conn = sqlite3.connect('weibo.db')
+        self.c = self.conn.cursor()
+
     def process_item(self, item, spider):
-        return item
+        self.c.execute("SELECT count(*) FROM rentings WHERE post_id = ?",
+                       (item['post_id'],))
+        cnt = self.c.fetchone()[0]
+        if cnt is not 0:
+            return
+
+        self.c.execute("INSERT into rentings VALUES (?,?,?,?)",
+                       (item['post_id'], item['text'], item['url'],
+                       item['post_date'],))
+        self.conn.commit()
+
+    def close_spider(self, spider):
+        self.conn.close()

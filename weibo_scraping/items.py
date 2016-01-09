@@ -13,4 +13,5 @@ class WeiboScrapingItem(scrapy.Item):
     # name = scrapy.Field()
     text = scrapy.Field()
     url = scrapy.Field()
-    # post_date = scrapy.Field()
+    post_date = scrapy.Field()
+    post_id = scrapy.Field()
